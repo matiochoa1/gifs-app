@@ -1,30 +1,35 @@
+import { useState } from "react";
+import { GifList } from "./gifs/components/GifList";
+import { PreviousSearches } from "./gifs/components/PreviousSearches";
+import { mockGifs } from "./mock-data/gifs.mock";
+import { CustomHeader } from "./shared/components/CustomHeader";
+import { SearchBar } from "./shared/components/SearchBar";
+
 export const GifsApp = () => {
+  const [previousSearches, setPreviousSearches] = useState(["dragon ball z"]);
+
+  const handleSearchClicked = (term: string) => {
+    console.log(term);
+  };
   return (
     <>
       {/* Header */}
-      <div className="content-center">
-        <h1>Buscador de Gifs</h1>
-        <p>Descubre y comparte el gif perfecto</p>
-      </div>
+      <CustomHeader
+        title="Buscador de Gifs"
+        description="Descubre y comparte el gif perfecto"
+      />
 
       {/* Search */}
-      <div className="search-container">
-        <input type="text" placeholder="Buscar gifs" />
-        <button>Buscar</button>
-      </div>
+      <SearchBar placeholder="Busca tu gif favorito..." />
 
       {/* Previous searches */}
-      <div className="previous-searches">
-        <h2>Busquedas previas</h2>
-        <ul className="previous-searches-list">
-          <li>Goku</li>
-          <li>Formula 1</li>
-          <li>God of War</li>
-        </ul>
-      </div>
+      <PreviousSearches
+        searches={previousSearches}
+        onLabelClicked={handleSearchClicked}
+      />
 
       {/* Gifs */}
-      <div className="gifs-container"></div>
+      <GifList gifs={mockGifs} />
     </>
   );
 };
